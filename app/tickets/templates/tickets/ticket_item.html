@@ -1,0 +1,23 @@
+{%extends 'base.html'%}
+
+{%block title%}
+{{ ticket.name }}
+{%endblock%}
+
+{%block content%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <h1>
+                {{ticket.name}}
+            </h1>
+            <h2>Назначена отделу: {{ticket.unit.name}}</h2>
+            <p>
+                {{ticket.description}}
+            </p>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

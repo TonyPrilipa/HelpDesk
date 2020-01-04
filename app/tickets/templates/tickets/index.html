@@ -1,0 +1,23 @@
+{%extends 'base.html'%}
+
+{%block title%} Задачи {%endblock%}
+
+{%block content%}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h1>Задачи</h1>
+            </div>
+        </div>
+        {%for ticket in tickets_list%}
+        <div class="row">
+            <div class="col-lg-12">
+                <a class="nav-link" href="{{url_for('tickets.ticket_item', slug = ticket.slug)}}">
+                <button type="button" class="btn btn-warning">{{ ticket.name }}</button>
+                </a>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+
+{%endblock%}
