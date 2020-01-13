@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{%block title%} Создать заявку {%endblock%}
+
+{%block content%}
+<div class="containet text-center">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>
+                Создание новой заявки
+            </h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            {{wtf.quick_form(form)}}
+        </div>
+    </div>
+</div>
+
+{%endblock%}
+
