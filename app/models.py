@@ -1,14 +1,17 @@
 from app import db
 import re
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
+
 
 def slugify(name):
     pattern = r'[^\w+]'.lower()
     slug = re.sub(pattern, '-', name)
     return slug.lower()
 
-class Ticket(db.Model):
 
+class Ticket(db.Model):
     __tablename__ = 'tickets'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -40,3 +43,29 @@ class Unit(db.Model):
 
     def __repr__(self):
         return '<Id: {0}, Name: {1}>'.format(self.id, self.name)
+
+
+class User(UserMixin, db.Model):
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), unique=True)
+    email = db.Column(db.String(64), unique=True, index=True)
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+
+
+    def __repr__(self):
+        return '<Id: {}, username: {}'.format(self.id, self.username)
+
+
+class Role(db.Model):
+    __tablename__ = 'roles'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(40), unique=True)
+
+    role = db.relationship('User', backref='role ', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Id: {}, role: {}'.format(self.id, self.name)
+

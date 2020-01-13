@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, url_for, redirect, flash
-from models import Ticket
+from flask_login import login_required
 from .form import TicketCreateForm
 from models import Ticket, Unit
 from app import db
@@ -9,6 +9,7 @@ tickets = Blueprint('tickets', __name__, template_folder='templates')
 
 
 @tickets.route('/')
+@login_required  #  не дает доступ не аутинтефицированым юзерам
 def index():
     tickets = Ticket.query.all()
     return render_template('tickets/index.html', tickets_list=tickets)
@@ -25,7 +26,6 @@ def create():
         header = form.header.data
         unit = Unit.query.filter_by(name=form.unit.data).first()
         description = form.description.data
-
         ticket = Ticket(name=header, unit=unit, description=description)
         db.create_all()
         db.session.add(ticket)

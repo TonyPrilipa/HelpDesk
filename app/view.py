@@ -1,7 +1,5 @@
 from app import app
-from flask import render_template, url_for
-
-from models import Ticket, Unit
+from flask import render_template
 
 @app.route('/')
 def index():
