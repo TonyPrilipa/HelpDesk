@@ -3,6 +3,7 @@ from flask_login import login_required
 from .form import TicketCreateForm
 from models import Ticket, Unit
 from app import db
+from flask_login import login_required
 
 tickets = Blueprint('tickets', __name__, template_folder='templates')
 

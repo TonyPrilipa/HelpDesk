@@ -8,7 +8,7 @@
 
     {% for user in users %}
 
-    <p>{{user.username}}</p>
+    <p>{{user.username}} Роль: {{ user.role.name }}</p>
 
     {% endfor %}
 

@@ -4,10 +4,12 @@ import view
 
 from tickets.blueprint import tickets
 app.register_blueprint(tickets, url_prefix='/tickets')
+
 from users.blueprint import users
 app.register_blueprint(users, url_prefix='/users')
 
-
+from auth.blueprint import auth
+app.register_blueprint(auth, url_prefix='/auth')
 
 if __name__ == '__main__':
     app.run()

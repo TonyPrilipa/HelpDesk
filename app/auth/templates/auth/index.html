@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+
+<h1>New user?</h1>
+<a href="{{url_for('auth.register')}}">Click here for register</a>
+<div class="alert alert-warning">
+    {% for message in get_flashed_messages() %}
+        {{message}}
+    {% endfor %}
+</div>
+<div class="text-center">
+    {{ wtf.quick_form(form) }}
+</div>
+{% endblock %}

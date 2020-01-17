@@ -8,7 +8,8 @@
     <div class="row">
         <div class="col-lg-6 text center">
             <h1>CinemaCiti Техподдержка</h1>
-            <h3>Для продолжения выберете категорию</h3>
+            {{ current_user.username }}
+            <h3>Для продолжения выберите категорию</h3>
             <a class="nav-link" href="{{url_for('tickets.index')}}">
                 <button type="button" class="btn btn-warning">Задачи</button>
                 </a>
