@@ -2,9 +2,9 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
-
-<h1>New user?</h1>
-<a href="{{url_for('auth.register')}}">Click here for register</a>
+<div class="text-center">
+    <h1>LogIn</h1>
+</div>
 <div class="alert alert-warning">
     {% for message in get_flashed_messages() %}
         {{message}}
@@ -12,5 +12,13 @@
 </div>
 <div class="text-center">
     {{ wtf.quick_form(form) }}
+</div>
+<div class="col-lg-6">
+<h3>New user?</h3>
+</div>
+<div class="col-lg-6">
+<a href="{{url_for('auth.register')}}">
+    <button type="button" class="btn btn-success">Click here for register</button>
+</a>
 </div>
 {% endblock %}

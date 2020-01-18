@@ -21,3 +21,13 @@ login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
+
+
+def available_units():
+    from models import Unit
+    names = []
+    units = Unit.query.with_entities(Unit.name).all()
+    for unit in units:
+        unit_tuple = unit.name, unit.name
+        names.append(unit_tuple)
+    return names

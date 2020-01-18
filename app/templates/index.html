@@ -7,21 +7,36 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6 text center">
-            <h1>CinemaCiti Техподдержка</h1>
-            {{ current_user.username }}
-            <h3>Для продолжения выберите категорию</h3>
+        {% if current_user.username %}
+
+            <div>
+             <h3>Hello {{ current_user.username }}</h3>
+            </div>
+            <h3>What are you want?</h3>
+            <div class="row">
             <a class="nav-link" href="{{url_for('tickets.index')}}">
-                <button type="button" class="btn btn-warning">Задачи</button>
+                <button type="button" class="btn btn-success">See tasks</button>
                 </a>
+
             <a class="nav-link" href="{{url_for('tickets.create')}}">
-                <button type="button" class="btn btn-warning">Создать задачу</button>
+                <button type="button" class="btn btn-success">Create new task</button>
                 </a>
             <a class="nav-link" href="{{url_for('users.index')}}">
-                <button type="button" class="btn btn-warning">Пользователи</button>
+                <button type="button" class="btn btn-success">Users</button>
                 </a>
+                </div>
+        {% else %}
+            <h1>Hello Stranger!</h1>
+            <h3>You must be logged in for use services</h3>
+            <a class="nav-link" href="{{url_for('auth.login')}}">
+                <button type="button" class="btn btn-success">Login</button>
+                </a>
+        {% endif %}
         </div>
         </div>
+    <h6>HelpDesk by Tony Prilipa</h6>
     </div>
-</div>
+
+
 
 {%endblock%}

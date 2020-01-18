@@ -20,6 +20,8 @@ class Ticket(db.Model):
     description = db.Column(db.String(140))
     slug = db.Column(db.String(40), unique=True)
     created = db.Column(db.DateTime, default=datetime.now())
+    who_create = db.Column(db.String(64))
+
     unit_id = db.Column(db.Integer, db.ForeignKey('units.id'))
 
     def __init__(self, *args, **kwargs):
@@ -39,7 +41,7 @@ class Unit(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), unique=True)
-
+    user = db.relationship('User', backref='unit', lazy='dynamic')
     ticket = db.relationship('Ticket', backref='unit', lazy='dynamic')
 
     def __repr__(self):
@@ -65,8 +67,11 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), unique=True)
     email = db.Column(db.String(64), unique=True)
     password_hash = db.Column(db.String(128))
-    user_test = db.Column(db.String(10))
-    user_test2 = db.Column(db.String(10))
+    real_name = db.Column(db.String(32))
+    phone = db.Column(db.String(32))
+    about = db.Column(db.Text(140))
+
+    unit_id = db.Column(db.Integer, db.ForeignKey('units.id'))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
 
     @property

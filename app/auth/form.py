@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import Email, DataRequired, EqualTo
 from wtforms import ValidationError
 from models import User
+from app import available_units
 
 
 class LoginForm(FlaskForm):
@@ -15,6 +16,7 @@ class LoginForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     username = StringField('Username', validators=[DataRequired()])
+    unit = SelectField('Unit', choices=available_units(), validators=[DataRequired()])
     password = PasswordField('Password', validators=[
         DataRequired(),
         EqualTo('password2', message='Passwords must match')])
