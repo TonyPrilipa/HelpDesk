@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, request, flash, url_for
 from .form import LoginForm, RegistrationForm
-from models import User
+from models import User, Unit
 from flask_login import login_user, logout_user, login_required
 from app import db
 
@@ -30,9 +30,12 @@ def logout():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
+        unit = Unit.query.filter_by(name=form.unit.data).first()
         user = User(email=form.email.data,
                     username=form.username.data,
-                    password=form.password.data, unit=form.unit.data)
+                    password=form.password.data,
+                    unit=unit)
+        print(unit)
         db.session.add(user)
         db.session.commit()
         flash('You can now login')

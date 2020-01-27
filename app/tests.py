@@ -23,3 +23,4 @@ class UserModelTestCase(unittest.TestCase):
         user = User(password='tiger')
         user2 = User(password='tiger')
         self.assertTrue(user.password_hash != user2.password_hash)
+

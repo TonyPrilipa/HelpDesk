@@ -1,6 +1,6 @@
 {%extends 'base.html'%}
 
-{%block title%} Задачи {%endblock%}
+{%block title%} Tickets {%endblock%}
 
 {%block content%}
     <div class="container">
@@ -9,6 +9,14 @@
                 <h1>Tasks</h1>
             </div>
         </div>
+        {% if count < 1 %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>No available tickets</h2>
+                <a href="{{url_for('tickets.create')}}"><button type="button" class="btn btn-success">Create one</button></a>
+            </div>
+        </div>
+        {% else %}
         {%for ticket in tickets_list%}
         <div class="row">
             <div class="col-lg-12">
@@ -19,6 +27,7 @@
             </div>
         </div>
         {%endfor%}
+        {% endif %}
     </div>
 
 {%endblock%}

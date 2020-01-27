@@ -18,14 +18,13 @@
                 {{ticket.description}}
             </p>
             <p>Task created by: {{ticket.who_create}}</p>
-
-
         </div>
         <div class="col-lg-6 text-left" style="margin-top:10px;">
             <h2>Operations: </h2>
             <form action="" role="form" method="post">
-            {{ form.delete }}
+                {{ form.delete }}
             </form>
+            <a href="{{url_for('tickets.edit_ticket', slug=ticket.slug)}}"><button type="button" class="btn btn-warning">Edit</button></a>
             {% for message in get_flashed_messages() %}
                 <div class="alert alert-danger">
                     {{message}} <a href="url_for"></a>
