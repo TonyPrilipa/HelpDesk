@@ -9,3 +9,5 @@ class EditProfileForm(FlaskForm):
     phone = StringField('Phone', validators=[DataRequired()])
     about = TextAreaField('About', validators=[DataRequired()])
     submit = SubmitField('Submit', validators=[DataRequired()])
+
+    delete = SubmitField('Delete')

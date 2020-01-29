@@ -35,7 +35,6 @@ def register():
                     username=form.username.data,
                     password=form.password.data,
                     unit=unit)
-        print(unit)
         db.session.add(user)
         db.session.commit()
         flash('You can now login')

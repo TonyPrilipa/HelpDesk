@@ -6,10 +6,18 @@
 <div>
     <h2>{{ user.username }}</h2>
     <div>
-        <p>{{user.real_name}}</p>
-        <p>{{user.email}}</p>
-        <p>{{user.phone}}</p>
-        <p>{{user.about}}</p>
+        <p><h6 style="color: blue;">Username: </h6>{{user.username}}</p>
+        <p><h6 style="color: blue;">Name: </h6>{{user.real_name}}</p>
+        <p><h6 style="color: blue;">Email: </h6>{{user.email}}</p>
+        <p><h6 style="color: blue;">Phone: </h6>{{user.phone}}</p>
+        <p><h6 style="color: blue;">Unit: </h6>{{user.unit.name}}</p>
+        <p><h6 style="color: blue;">About: </h6>{{user.about}}</p>
     </div>
+
 </div>
+    {% if current_user.username == user.username %}
+
+        <a href="{{url_for('users.edit_profile', username=user.username)}}"><button type="button" class="btn btn-info">Edit
+        </button></a>
+    {% endif %}
 {% endblock %}

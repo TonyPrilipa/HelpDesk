@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, abort, redirect, url_for
+from flask import Blueprint, render_template, abort, redirect, url_for, request
 from flask_login import current_user
 from models import User
 from .form import EditProfileForm
@@ -12,11 +12,17 @@ def index():
     return render_template('users/index.html', users=users)
 
 
-@users.route('/<username>')
+@users.route('/<username>', methods=['GET', 'POST'])
 def user_profile(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
         abort(404)
+
+    if request.form:
+        if request.form['delete']:
+            db.session.delete(user)
+            db.session.commit()
+        return redirect(url_for('users.index'))
     return render_template('users/user_profile.html', user=user)
 
 @users.route('/edit-profile/<username>', methods=['GET', 'POST'])
@@ -30,7 +36,13 @@ def edit_profile(username):
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('users.user_profile', username=username))
-    user.real_name = form.real_name.data
-    user.phone = form.phone.data
-    user.about = form.about.data
+    elif request.method == 'GET':
+        form.real_name.data = user.username
+        form.phone.data = (user.phone or 'None')
+        form.about.data = (user.about or 'None')
+    if request.form:
+        if request.form['delete']:
+            db.session.delete(user)
+            db.session.commit()
+            return redirect(url_for('users.index'))
     return render_template('users/edit_profile.html', form=form)

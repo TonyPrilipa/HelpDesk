@@ -41,6 +41,7 @@ class Unit(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(40), unique=True)
+
     user = db.relationship('User', backref='unit', lazy='dynamic')
     ticket = db.relationship('Ticket', backref='unit', lazy='dynamic')
 
