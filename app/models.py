@@ -21,7 +21,8 @@ class Ticket(db.Model):
     slug = db.Column(db.String(40), unique=True)
     created = db.Column(db.DateTime, default=datetime.now())
     who_create = db.Column(db.String(64))
-
+    in_work = db.Column(db.String(1))
+    in_work_by_user = db.Column(db.String(10))
     unit_id = db.Column(db.Integer, db.ForeignKey('units.id'))
 
     def __init__(self, *args, **kwargs):

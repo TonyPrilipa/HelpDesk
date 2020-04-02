@@ -9,18 +9,32 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-6 text-left">
-            <h1>
-                {{ticket.name}}
-            </h1>
-            <h2>Unit on work: {{ticket.unit.name}}</h2>
+        <div class="col-md-4 text-left">
+            <h1>{{ticket.name}}</h1>
             <p>
                 {{ticket.description}}
             </p>
+            <p>Unit assigned: {{ticket.unit.name}}</p>
             <p>Task created by: {{ticket.who_create}}</p>
+            {% if ticket.in_work == '1' %}
+                <p style="color: green;">In work: {{ticket.in_work_by_user}}</p>
+                    <form action="{{url_for('tickets.ticket_item', slug=ticket.slug)}}" method="POST">
+                        <input type="submit" name="done" value="Done">
+                    </form>
+            {% elif ticket.in_work == '0' %}
+                <p style="color: red;">Await for accept</p>
+                {% if current_user.unit.name == ticket.unit.name %}
+                    <form action="{{url_for('tickets.ticket_item', slug=ticket.slug)}}" method="POST">
+                        <input type="submit" name="assign" value="assign">
+                    </form>
+                {% endif %}
+            {% elif ticket.in_work == '2' %}
+                    <p style="color: brown;">Solved!</p>
+            {% endif %}
         </div>
-        <div class="col-lg-6 text-left" style="margin-top:10px;">
-            <h2>Operations: </h2>
+        {% if current_user.username == ticket.who_create %}
+        <div class="col-md-4 text-left" style="margin-top:10px;">
+            <h2>Manage: </h2>
             <form action="" role="form" method="post">
                 {{form.delete}}
             </form>
@@ -31,6 +45,7 @@
                 </div>
             {% endfor %}
         </div>
+        {% endif %}
     </div>
 </div>
 

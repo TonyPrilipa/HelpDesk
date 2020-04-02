@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{%block title%} {{usename}} {% endblock %}
+{% block head %} 
+<style type="text/css">
+    table{
+        border: 2px solid black;
+        padding: 3px;
+        margin: 10px;
+        width: 70%;
+    }
+    th, tr, td{
+        border: 2px dotted grey;
+        padding: 1px;
+    }
+
+    .ticket-name {
+        width: 40%;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 15px;">
+    <div class="row">
+        <div class="col-md-4 cabinet-head">
+            <h2>Hello {{username}}</h2>
+        </div>
+    </div>
+
+        <div class="col-lg-12 cabinet-body">
+            <!--p>My tickets: </p>
+            {% for ticket in ticket_list %}
+            {% if ticket.in_work == '1' %}
+            <div class="ticket">
+                <a href="{{url_for('tickets.ticket_item', slug=ticket.slug)}}" class="">
+                    {{ticket.name}}
+                </a>
+            {% elif ticket.in_work == '2'%}
+            <a href="{{url_for('tickets.ticket_item', slug=ticket.slug)}}" class="">
+                {{ticket.name}}
+            </a>
+            {% endif %}
+            {% endfor %} -->
+            <div class="last-tickets">
+            <h4>Last tickets</h4>
+            <table>
+                <thead>
+                    <th>Name</th>
+                    <th>From user</th>
+                    <th>Date</th>
+                </thead>
+                <tbody>
+                    {% for ticket in ticket_list %}
+                    {% if ticket.in_work == '1' %}
+                    <tr>
+                        <td class="ticket-name"><a href="{{url_for('tickets.ticket_item', slug=ticket.slug)}}">{{ticket.name}}</a></td>
+                        <td>{{ ticket.who_create }}</td>
+                        <td>{{ ticket.created }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+              
+                {% if ticket_list == [] %}
+                    <tr><td class>No unsolved tickets. Check the <a href="{{url_for('tickets.index')}}">Tickets</a> page</td></tr>
+                {% endif %}
+            </tbody>
+            </table>
+            </div>
+            <div class="solved">
+                <h4>Solved tickets</h4>
+                <table>
+                    <thead>
+                        <th>Name</th>
+                        <th>From user</th>
+                        <th>Date</th>
+                    </thead>
+                    <tbody>
+                        {% for ticket in ticket_list %}
+                        {% if ticket.in_work == '2' %}
+                        <tr>
+                            <td class="ticket-name"><a href="{{url_for('tickets.ticket_item', slug=ticket.slug)}}">{{ticket.name}}</a></td>
+                            <td>{{ ticket.who_create }}</td>
+                            <td>{{ ticket.created }}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        
+    <div class="col-md-4 cabinet-footer">
+        <a href="{{url_for('users.edit_profile', username=username)}}"><button type="button" class="btn btn-info">Edit profile</button>
+        </a>
+    </div>
+</div>
+{% endblock %}
